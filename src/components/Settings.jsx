@@ -1,11 +1,12 @@
-import React from 'react';
-
+import React from "react";
+import { Container } from "semantic-ui-react";
+ 
 const Settings = () => {
-	return (
-		<div>
-			Settings Tab
-		</div>
-	);
+  return (
+    <div>
+      <Container>Settings Tab</Container>
+    </div>
+  );
 };
 
 export default Settings;
