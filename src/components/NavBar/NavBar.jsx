@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Container,
   Checkbox,
@@ -10,42 +10,48 @@ import {
   Segment,
   Sidebar,
 } from "semantic-ui-react";
-import HomePage from "../HomePage";
-import Settings from "../Settings";
-import About from "../About";
+import HomePage from "../Homepage/HomePage";
+import Settings from "../Settings/Settings";
+import About from "../About/About";
 import "../NavBar/NavBar.css";
-import { handleRef } from "@fluentui/react-component-ref";
+import Bar from "../Checkbox/Bar";
+import BodyHeader from "../Header/BodyHeader";
+import logoImage from '../Header/ICON.png';
 
 const NavBar = () => {
   const [handlerElem, setVisible] = React.useState({
     visible: false,
     landingPage: <HomePage />,
   });
- 
-  
+  const callback = (childState) => {
+    console.log("ChildState : " + childState.active);
+    setVisible({
+      visible: childState.active ? false : true,
+      landingPage: handlerElem.landingPage,
+    });
+  };
+  useEffect(() => {}, []);
+
   const handleItemClick = (e, data) => {
     console.log("CLicked :", data.name);
-    
-     
 
     setVisible({
       visible: false,
-      landingPage:  data.name === "home" ? (
-        <HomePage />
-      ) : data.name === "settings" ? (
-        <Settings />
-      ) : data.name === "about" ? (
-        <About />
-      ) : (
-        ""
-      )
+      landingPage:
+        data.name === "home" ? (
+          <HomePage />
+        ) : data.name === "settings" ? (
+          <Settings />
+        ) : data.name === "about" ? (
+          <About />
+        ) : (
+          ""
+        ),
     });
   };
   return (
     <div className={"extBody"}>
-      
-       
-      <Checkbox
+      {/* <Checkbox
         checked={handlerElem.visible}
         label={{ children: <code>visible</code> }}
         
@@ -53,7 +59,12 @@ const NavBar = () => {
           landingPage : handlerElem.landingPage 
         
         })}
+      /> */}
+      <BodyHeader
+      headerVisible = {handlerElem.visible}
+      headerCallback = {callback}
       />
+      {/* <Bar setStatus={handlerElem.visible} parentCallback={callback} /> */}
 
       <Sidebar.Pushable as={Segment}>
         <Sidebar
@@ -63,15 +74,18 @@ const NavBar = () => {
           inverted
           // onHide={() => {
           //   setVisible({ visible: false,
-          //      landingPage : handlerElem.currentPage
+          //      landingPage : handlerElem.landingPage
           //   });
           // }}
           vertical
           visible={handlerElem.visible}
           width="thin"
         >
-          <Menu.Item as="a" name="home" onClick={handleItemClick}>
-            <Icon name="home" />
+          <Menu.Item   as="a" name="home" onClick={handleItemClick}  >
+            <Container textAlign >
+            <img style={{height : '50px'}} src={logoImage} alt='logo'/>
+              </Container>
+           
             Home
           </Menu.Item>
           <Menu.Item as="a" name="settings" onClick={handleItemClick}>

@@ -1,43 +1,41 @@
-import React,{useState,useEffect} from 'react';
-import $ from 'jquery';
-import '../Checkbox/Bar.css';
-import { Component } from 'react';
-const Bar = () => {
-	
-	
-	const [barState,setBarState] = useState({
-		active : false
-	})
-	const getState = () =>
-	{
+import React, { useState, useEffect } from "react";
+import $ from "jquery";
+import "../Checkbox/Bar.css";
+import { Component, useContext } from "react";
 
-		$('.hamburger').hasClass('is-active') ? setBarState({active : true}) : setBarState({active : false});
-			  
-	}
-	useEffect(() =>
-	{
-		$('.hamburger').on('click',function()
-		{
-			$('.hamburger').toggleClass('is-active');
-			getState();
-		})
-		// $(document).ready(function(){
-		// 	$(".hamburger").click(function(){
-		// 	  $(this).toggleClass("is-active");
-		// 	  getState()
-		// 	});
-		//   });
-	},[])
-	return (
-		<div>
-		  <div className="hamburger" id="hamburger-3">
-          <span className="line"></span>
-          <span className="line"></span>
-          <span className="line"></span>
-        </div>
-		</div>
-	);
+const Bar = ({parentCallback , setStatus}) => {
+  const [barState, setBarState] = useState({
+    active: false,
+  });
+    
+  useEffect(() => {
+
+	setBarState({active : setStatus});
+	console.log('Component Did Mount and setStatus');
+  }, [setStatus])
+  return (
+     
+	
+      
+      <div 
+      onClick={() => {
+        setBarState({
+          active: barState.active ? false : true,
+        },parentCallback(barState));
+
+		 
+      }}
+        className={barState.active ? "hamburger is-active" : "hamburger"}
+        id="hamburger-3"
+		
+      >
+		 
+        <span className="line"></span>
+        <span className="line"></span>
+        <span className="line"></span>
+      </div>
+  
+  );
 };
-
 
 export default Bar;

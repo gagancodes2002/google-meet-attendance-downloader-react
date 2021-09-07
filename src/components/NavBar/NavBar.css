@@ -4,4 +4,7 @@
   height : 600px;
   width : 500px;
  }
- 
+ img{
+     border : solid 5px #FF6701;
+     border-radius: 50%;
+    }

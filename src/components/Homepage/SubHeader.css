@@ -1,0 +1,25 @@
+.subHead {
+  padding: 10px;
+  border-bottom-left-radius: 25px;
+  border-top-left-radius: 25px;
+  background-color: #ff6701;
+  /* transform: translateX(400px); */
+  
+}
+.subHead.active {
+	animation: 1s mymove ease;
+}
+
+@keyframes mymove {
+	from {
+		right: 0;
+		transform: translateX(400px);
+	 
+	}
+
+	to {
+		right: 0;
+		transform: translateX(0px);
+		 
+	}
+}
